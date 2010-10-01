@@ -102,5 +102,14 @@ package game {
             do_animation(player_idx);
             super.update();
         }
+        
+        override public function preCollide(Contact:FlxObject):void {
+            
+            if( Contact is HittableBlock ) {
+                trace('preCollide 1');
+            } 
+            
+            super.preCollide(Contact);
+        }
     }
 }
