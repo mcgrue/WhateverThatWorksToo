@@ -12,6 +12,8 @@ package game {
         public const JUMP_HOLD_FORCE:int = 150;
         public const MAX_VELOCITY:int = 300;
         
+        public const IMPACT_MULTIPLIER:Number = 2; 
+        
         public var player_idx:int; 
         
         public var controls:Object = {
@@ -44,6 +46,7 @@ package game {
             addAnimation("jump", [f2]);
             
             maxVelocity.y = MAX_VELOCITY;
+            maxVelocity.x = MAX_VELOCITY;
             acceleration.y = GRAVITY;
         }
         
@@ -76,6 +79,18 @@ package game {
             if( FlxG.keys.pressed(controls[p].up) && velocity.y < 0 ) {
                 velocity.y -= JUMP_HOLD_FORCE * FlxG.elapsed;
             }
+            
+            if( velocity.y > MAX_VELOCITY ) {
+                velocity.y = MAX_VELOCITY;
+            } else if( velocity.y < -MAX_VELOCITY ) {
+                velocity.y = -MAX_VELOCITY;
+            } 
+            
+            if( velocity.x > MAX_VELOCITY ) {
+                velocity.x = MAX_VELOCITY;
+            } else if( velocity.x < -MAX_VELOCITY ) {
+                velocity.x = -MAX_VELOCITY;
+            } 
         }
         
         public function do_animation(p:Number): void {
@@ -113,7 +128,12 @@ package game {
                     hb.doBounce(velocity.y);
                     velocity.y = -velocity.y;
                 }
-            } 
+            } else if( Contact is Player ) {
+                Contact.velocity.x = -(Contact.velocity.x*IMPACT_MULTIPLIER);
+                Contact.velocity.y = -(Contact.velocity.y*IMPACT_MULTIPLIER);
+                this.velocity.x = -(this.velocity.x*IMPACT_MULTIPLIER);
+                this.velocity.y = -(this.velocity.y*IMPACT_MULTIPLIER);
+            }
             
             super.preCollide(Contact);
         }
