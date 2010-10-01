@@ -4,18 +4,19 @@ package game {
     public class Player extends WrappingSprite {
         [Embed (source = "../../data/sprites/players.png")] private var player_spritesheet:Class;
         
-        public const MOVE_SPEED:Number = 100;
-        public const RUN_ACCEL:Number = 700;
-        public const RUN_DRAG:Number = 300;
-        public const GRAVITY:Number = 1200;
-        public const JUMP_FORCE:Number = 1200;
-        public const JUMP_HOLD_FORCE:Number = 150;
+        public const MOVE_SPEED:int = 100;
+        public const RUN_ACCEL:int = 700;
+        public const RUN_DRAG:int = 300;
+        public const GRAVITY:int = 1200;
+        public const JUMP_FORCE:int = 1200;
+        public const JUMP_HOLD_FORCE:int = 150;
+        public const MAX_VELOCITY:int = 300;
         
         public var player_idx:Number; 
         
         public var controls:Object = {
             1:{left:'LEFT', right:'RIGHT', up:'UP'},
-            2:{left:'A', right:'D', up:'W'}
+            3:{left:'A', right:'D', up:'W'}
         };
         
         public function Player(X:Number=0, Y:Number=0, P:Number=1) {
@@ -42,7 +43,7 @@ package game {
             addAnimation("run", [f1, f2], 6);
             addAnimation("jump", [f2]);
             
-            maxVelocity.y = 300;
+            maxVelocity.y = MAX_VELOCITY;
             acceleration.y = GRAVITY;
         }
         

@@ -67,23 +67,20 @@ package game {
                             
                             var hb:HittableBlock = new HittableBlock(x*16, y*16, 16, 16);
                             hb.loadTiles(hittableTile, 16, 16);
+                            hb.collideLeft = false;
+                            hb.collideRight = false;
                             obs_group.add(hb);
-                            
-                            trace('added a hittable block at ('+x+','+y+')');
                         }
                         
                         obs.setTile(x, y, 1);
                     }
-                    
-                    //obs.setTile(x, y, ((y==15)?3:1) );
                 }    
-            }
+           } 
             
-            
-//            map_group.add(map);
+            map_group.add(map);
             
             plr_group.add( new Player(4*16,9*16,1) );
-            plr_group.add( new Player(11*16,9*16,2) );   
+            plr_group.add( new Player(11*16,9*16,3) );   
             
             super.create();
         }
@@ -99,11 +96,8 @@ package game {
         }
                
         override public function update(): void {
-            
             before_update();
-
             super.update();
-            
             after_update();
         }
  	}
