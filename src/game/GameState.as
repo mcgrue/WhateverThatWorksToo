@@ -9,6 +9,7 @@ package game {
         
         public var map_group:FlxGroup = new FlxGroup();
         public var obs_group:FlxGroup = new FlxGroup();
+        public var objects_group:FlxGroup = new FlxGroup();
         public var plr_group:FlxGroup = new FlxGroup();
         public static const obstructed_tiles:Array = [4,17,18,19,33,34,35]; 
             
@@ -32,6 +33,7 @@ package game {
             
             add(obs_group);
             add(map_group);
+            add(objects_group);
             add(plr_group);
                         
             var xml:XML = new XML( new marioMap );
@@ -69,7 +71,9 @@ package game {
                             hb.loadTiles(hittableTile, 16, 16);
                             hb.collideLeft = false;
                             hb.collideRight = false;
-                            obs_group.add(hb);
+                            objects_group.add(hb);
+                            
+                            map.setTile(x, y, 1);
                         }
                         
                         obs.setTile(x, y, 1);
@@ -78,6 +82,7 @@ package game {
            } 
             
             map_group.add(map);
+            //map.visible = false;
             
             plr_group.add( new Player(4*16,9*16,1) );
             plr_group.add( new Player(11*16,9*16,3) );   
@@ -89,6 +94,7 @@ package game {
             
             FlxU.collide(plr_group, obs_group);
             FlxU.collide(plr_group, plr_group);
+            FlxU.collide(plr_group, objects_group);
         }
         
         public function after_update(): void {

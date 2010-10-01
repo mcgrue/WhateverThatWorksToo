@@ -12,7 +12,7 @@ package game {
         public const JUMP_HOLD_FORCE:int = 150;
         public const MAX_VELOCITY:int = 300;
         
-        public var player_idx:Number; 
+        public var player_idx:int; 
         
         public var controls:Object = {
             1:{left:'LEFT', right:'RIGHT', up:'UP'},
@@ -107,7 +107,12 @@ package game {
         override public function preCollide(Contact:FlxObject):void {
             
             if( Contact is HittableBlock ) {
-                trace('preCollide 1');
+                if( y > Contact.y ) {
+                    var hb:HittableBlock = Contact as HittableBlock;
+                    
+                    hb.doBounce(velocity.y);
+                    velocity.y = -velocity.y;
+                }
             } 
             
             super.preCollide(Contact);
