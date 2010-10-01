@@ -1,14 +1,14 @@
 package game {
     import org.flixel.*;
     
-    public class Player extends FlxSprite {
+    public class Player extends WrappingSprite {
         [Embed (source = "../../data/sprites/players.png")] private var player_spritesheet:Class;
         
         public const MOVE_SPEED:Number = 100;
         public const RUN_ACCEL:Number = 700;
         public const RUN_DRAG:Number = 300;
         public const GRAVITY:Number = 1200;
-        public const JUMP_FORCE:Number = 2400;
+        public const JUMP_FORCE:Number = 1200;
         public const JUMP_HOLD_FORCE:Number = 150;
         
         public var player_idx:Number; 
