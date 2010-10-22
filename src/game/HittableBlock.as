@@ -10,8 +10,8 @@ package game {
         public var originalX:int;
         public var originalY:int;
         
-        public const GRAVITY:int = 640;
-        public const JUMP_FORCE:int = 1280;
+        public const GRAVITY:int = 900;
+        public const JUMP_FORCE:int = 1100;
         
         public const MAX_BOUNCE_Y:int = 16;
         

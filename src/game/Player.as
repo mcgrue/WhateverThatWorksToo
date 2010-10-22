@@ -8,8 +8,10 @@ package game {
         public const MOVE_SPEED:int = 100;
         public const RUN_ACCEL:int = 700;
         public const RUN_DRAG:int = 300;
+        
         public const GRAVITY:int = 900;
         public const JUMP_FORCE:int = 1100;
+        
         public const JUMP_HOLD_FORCE:int = 150;
         public const MAX_VELOCITY:int = 320;
         
