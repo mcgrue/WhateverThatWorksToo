@@ -21,11 +21,11 @@ package game {
 
 		}
         
-        public static function is_hittable_brick(idx:int): Boolean {
+        public static function isHittableBrick(idx:int): Boolean {
             return idx == 2;
         }
         
-        public static function is_obstruction_tile(idx:int):Boolean {
+        public static function isObstructionTile(idx:int):Boolean {
             return obstructedTiles.indexOf(idx) >= 0;
         }
         
@@ -62,10 +62,10 @@ package game {
             for( var x:int = 0; x<obs.widthInTiles; x++ ) {
                 for( var y:int = 0; y<obs.heightInTiles; y++ ) {
                     
-                    if( is_obstruction_tile(obs.getTile(x,y)) ) {
+                    if( isObstructionTile(obs.getTile(x,y)) ) {
                         obs.setTile(x, y, 2);
                     } else {
-                        if( is_hittable_brick(obs.getTile(x,y)) ) {
+                        if( isHittableBrick(obs.getTile(x,y)) ) {
                             
                             var hb:HittableBlock = new HittableBlock(x*16, y*16, 16, 16);
                             hb.loadTiles(hittableTile, 16, 16);
@@ -90,8 +90,7 @@ package game {
             super.create();
         }
         
-        public function before_update(): void {
-            
+        public function before_update(): void {    
             FlxU.collide(playerGroup, obstructionGroup);
             FlxU.collide(playerGroup, playerGroup);
             FlxU.collide(playerGroup, objectsGroup);

@@ -126,11 +126,11 @@ package game {
                 
                 var hb:HittableBlock = Contact as HittableBlock;
                 
-                if( y > (hb.orig_y) && y <= (hb.orig_y+16) ) {
+                if( y > (hb.originalY) && y <= (hb.originalY+16) ) {
 
                     hb.doBounce( velocity.x, velocity.y );
                     
-                    y = hb.orig_y+16;
+                    y = hb.originalY+16;
                     velocity.y = 0;
                 }
             } else if( Contact is Player ) {
