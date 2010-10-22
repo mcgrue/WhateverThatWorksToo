@@ -74,6 +74,7 @@ package game {
                             
                             var hb:HittableBlock = new HittableBlock(x*16, y*16, 16, 16);
                             hb.loadTiles(hittableTile, 16, 16);
+                            
                             //hb.collideLeft = false;
                             //hb.collideRight = false;
                             objectsGroup.add(hb);
@@ -105,7 +106,7 @@ package game {
         public function after_update(): void {
             
         }
-               
+        
         override public function update(): void {
             before_update();
             super.update();
