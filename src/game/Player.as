@@ -3,7 +3,7 @@ package game {
     import org.flixel.*;
     
     public class Player extends WrappingSprite {
-        [Embed (source = "../../data/sprites/players.png")] private var player_spritesheet:Class;
+        [Embed (source = "../../data/sprites/players.png")] private var playerSpritesheet:Class;
         
         public const MOVE_SPEED:int = 100;
         public const RUN_ACCEL:int = 700;
@@ -15,7 +15,7 @@ package game {
         
         public const IMPACT_MULTIPLIER:Number = 2; 
         
-        public var player_idx:int; 
+        public var playerIndex:int; 
         
         public var controls:Object = {
             1:{left:'LEFT', right:'RIGHT', up:'UP'},
@@ -25,12 +25,12 @@ package game {
         public function Player(X:Number=0, Y:Number=0, P:Number=1) {
             super(X, Y);
             loadGraphic( 
-                player_spritesheet, 
+                playerSpritesheet, 
                 true, true,
                 16, 16
             );
             
-            player_idx = P;
+            playerIndex = P;
             
             switch(P) {
                 case 1: P=0; break;
@@ -51,7 +51,7 @@ package game {
             acceleration.y = GRAVITY;
         }
         
-        public function do_input(p:Number): void {
+        public function doInput(p:Number): void {
                         
             if( FlxG.keys.pressed(controls[p].left) ) {
                 acceleration.x = -RUN_ACCEL;
@@ -94,7 +94,7 @@ package game {
             } 
         }
         
-        public function do_animation(p:Number): void {
+        public function doAnimation(p:Number): void {
             if( FlxG.keys.pressed(controls[p].left) ) {
                 facing = LEFT;
             } else if( FlxG.keys.pressed(controls[p].right) ) {
@@ -115,8 +115,8 @@ package game {
         }
         
         override public function update(): void {
-            do_input(player_idx);
-            do_animation(player_idx);
+            doInput(playerIndex);
+            doAnimation(playerIndex);
             super.update();
         }
         
