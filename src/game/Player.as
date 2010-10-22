@@ -8,8 +8,8 @@ package game {
         public const MOVE_SPEED:int = 100;
         public const RUN_ACCEL:int = 700;
         public const RUN_DRAG:int = 300;
-        public const GRAVITY:int = 1200;
-        public const JUMP_FORCE:int = 1200;
+        public const GRAVITY:int = 900;
+        public const JUMP_FORCE:int = 1100;
         public const JUMP_HOLD_FORCE:int = 150;
         public const MAX_VELOCITY:int = 320;
         
@@ -127,12 +127,11 @@ package game {
                 var hb:HittableBlock = Contact as HittableBlock;
                 
                 if( y > (hb.originalY) && y <= (hb.originalY+16) ) {
-
                     hb.doBounce( velocity.x, velocity.y );
-                    
                     y = hb.originalY+16;
                     velocity.y = 0;
                 }
+                
             } else if( Contact is Player ) {
                 Contact.velocity.x = -(Contact.velocity.x*IMPACT_MULTIPLIER);
                 Contact.velocity.y = -(Contact.velocity.y*IMPACT_MULTIPLIER);
