@@ -12,6 +12,7 @@ package net
 		
 		public var client:BaseClient;
 		public var host:BaseHost;
+		public var isHost:Boolean = false;
 		
 		public function Lobby(clientClass:Class, hostClass:Class, size:int, game:String=null)
 		{
@@ -48,11 +49,12 @@ package net
 		
 		public function hostGame():void {
 			host.ready(function():void {
-				var payload:Object = {'id': host.connection.nearID}
+				var payload:Object = {'id': host.connection.nearID};
 				Http.post(hostUrl(), payload, function(status:int, data:String):void {
 					if (status == 200) {
 						game = data.split(',')[2];
 						host.listen(host);	
+						isHost = true;
 						joinGame();
 					}
 				});

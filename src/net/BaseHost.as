@@ -21,13 +21,12 @@ package net
 		public function onConnect(clients:Array, peer:NetStream):void {
 			FlxG.log("Player connected: "+peer.farID);
 			if (clients.length == lobby.size) {
-				send("say", "Let's play!");
+				send("start");
 				FlxG.state = new LobbyState.gameState();
 			}
 		}
 		
 		public function key(type:String, keyCode:uint):void {
-			FlxG.log(keyCode);
 			FlxG.stage.dispatchEvent(new KeyboardEvent(type, true, false, 0, keyCode));
 		}
 	}

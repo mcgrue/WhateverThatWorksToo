@@ -4,8 +4,9 @@ package net
 	import flash.net.*;
 	import flash.utils.*;
 	
-	import org.flixel.*;
 	import game.*;
+	
+	import org.flixel.*;
 
 	
 	public class BaseClient extends PeerSocket
@@ -34,8 +35,10 @@ package net
 		}
 		
 		public function start():void {
-			FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKey);
-			FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKey);
+			if (!lobby.isHost) {
+				FlxG.state = new ClientState(this);	
+			}
+			
 		}
 		
 		public function onKey(event:KeyboardEvent):void {
