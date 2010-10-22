@@ -25,11 +25,11 @@ package net
 				
 		public function onConnect():void {
 			FlxG.log("Joining: "+connection.farID);
-			GameState.status.text = "Waiting for players...";
+			LobbyState.status.text = "Waiting for players...";
 		}
 		
 		public function say(data:String):void {
-			GameState.status.text = data;
+			LobbyState.status.text = data;
 			FlxG.log(data);
 		}
 		
