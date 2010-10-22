@@ -15,6 +15,8 @@ package game {
         public var obstructionGroup:FlxGroup = new FlxGroup();
         public var objectsGroup:FlxGroup = new FlxGroup();
         public var playerGroup:FlxGroup = new FlxGroup();
+        public var baddieGroup:FlxGroup = new FlxGroup();
+        
         public static const obstructedTiles:Array = [4,17,18,19,33,34,35]; 
             
         [Embed (source = "../../data/tilesets/mario.png")] private var marioTiles:Class;
@@ -38,6 +40,7 @@ package game {
 			add(mapGroup);
 			add(objectsGroup);
 			add(playerGroup);
+            add(baddieGroup);
                         
             var xml:XML = new XML( new marioMap );
             var mapxml:XMLList = xml.*;
@@ -89,7 +92,8 @@ package game {
             
 			playerGroup.add( new Player(4*16,9*16,1) );
 			playerGroup.add( new Player(11*16,9*16,3) );   
-
+            
+            baddieGroup.add( new Baddie(13*16, 16*2) );
 			
             super.create();
         }
@@ -98,6 +102,10 @@ package game {
             FlxU.collide(playerGroup, obstructionGroup);
             FlxU.collide(playerGroup, playerGroup);
             FlxU.collide(playerGroup, objectsGroup);
+            FlxU.collide(playerGroup, baddieGroup);
+
+            FlxU.collide(baddieGroup, obstructionGroup);
+            FlxU.collide(baddieGroup, objectsGroup);
         }
         
         public function after_update(): void {

@@ -63,7 +63,6 @@ package game {
                     p.velocity.x += this.storedX;
                 }
                 
-                
             } else {
                 this.storedX = 0;
             }
