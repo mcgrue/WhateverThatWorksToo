@@ -18,10 +18,8 @@ package game {
         public static const obstructedTiles:Array = [4,17,18,19,33,34,35]; 
             
         [Embed (source = "../../data/tilesets/mario.png")] private var marioTiles:Class;
-        [Embed (source = "../../data/sprites/hit_block.png")] private var hittableTile:Class;
         [Embed (source = "../../data/maps/mariobros.tmx", mimeType = "application/octet-stream")] private var marioMap:Class;
         
-		
 		public function GameState() {
 			
 		}
@@ -71,21 +69,20 @@ package game {
                         obs.setTile(x, y, 2);
                     } else {
                         if( isHittableBrick(obs.getTile(x,y)) ) {
-                            
+
                             var hb:HittableBlock = new HittableBlock(x*16, y*16, 16, 16);
-                            hb.loadTiles(hittableTile, 16, 16);
-                            
-                            //hb.collideLeft = false;
+
                             //hb.collideRight = false;
+                            //hb.collideLeft = false;
                             objectsGroup.add(hb);
                             
                             map.setTile(x, y, 1);
                         }
-                        
+
                         obs.setTile(x, y, 1);
                     }
-                }    
-           } 
+                }
+           }
             
             mapGroup.add(map);
             //map.visible = false;
