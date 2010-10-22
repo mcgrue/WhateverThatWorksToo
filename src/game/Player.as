@@ -1,4 +1,5 @@
 package game {
+    
     import org.flixel.*;
     
     public class Player extends WrappingSprite {
@@ -10,7 +11,7 @@ package game {
         public const GRAVITY:int = 1200;
         public const JUMP_FORCE:int = 1200;
         public const JUMP_HOLD_FORCE:int = 150;
-        public const MAX_VELOCITY:int = 300;
+        public const MAX_VELOCITY:int = 320;
         
         public const IMPACT_MULTIPLIER:Number = 2; 
         
@@ -37,7 +38,7 @@ package game {
                 case 3: P=4; break;
                 case 4: P=6; break;
             }
-                        
+            
             var f1:Number = (P);
             var f2:Number = (P+1);
             
@@ -122,11 +123,15 @@ package game {
         override public function preCollide(Contact:FlxObject):void {
             
             if( Contact is HittableBlock ) {
-                if( y > Contact.y ) {
-                    var hb:HittableBlock = Contact as HittableBlock;
+                
+                var hb:HittableBlock = Contact as HittableBlock;
+                
+                if( y > (hb.orig_y) && y <= (hb.orig_y+16) ) {
+
+                    hb.doBounce( velocity.x, velocity.y );
                     
-                    hb.doBounce(velocity.y);
-                    velocity.y = -velocity.y;
+                    y = hb.orig_y+16;
+                    velocity.y = 0;
                 }
             } else if( Contact is Player ) {
                 Contact.velocity.x = -(Contact.velocity.x*IMPACT_MULTIPLIER);

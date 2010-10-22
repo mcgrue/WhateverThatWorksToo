@@ -1,11 +1,14 @@
 package game {
+    import game.Player;
+    
+    import org.flixel.FlxObject;
     import org.flixel.FlxTileblock;
     
     public class HittableBlock extends FlxTileblock {
         
         public var is_bouncing:Boolean = false;
-        private var orig_x:int;
-        private var orig_y:int;
+        public var orig_x:int;
+        public var orig_y:int;
         
         public const GRAVITY:int = 640;
         public const JUMP_FORCE:int = 1280;
@@ -20,18 +23,33 @@ package game {
             acceleration.y = GRAVITY;
         }
         
-        public function doBounce(inertia:int):void {
+        public function doBounce(inertia_x:int, intertia_y:int):void {
             if( is_bouncing ) {
                 return;
             }
             
-            velocity.y = -Math.abs(inertia);
+            velocity.y = -Math.abs(intertia_y);
             
             // bounce everyone atop of it.
             
             y = y-1;
             
             is_bouncing = true;
+        }
+        
+        override public function preCollide(Contact:FlxObject):void {
+
+            /*
+            if( Contact is Player ) {
+                
+                var p:Player = Contact as Player;
+                
+                if( orig_y < p.y ) {
+                    p.velocity.y = 0;
+                    p.y = orig_y; 
+                }
+            }
+            */
         }
         
         public override function update():void {
