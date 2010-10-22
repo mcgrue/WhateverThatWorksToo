@@ -21,9 +21,8 @@ package net
 		public function onConnect(clients:Array, peer:NetStream):void {
 			FlxG.log("Player connected: "+peer.farID);
 			if (clients.length == lobby.size) {
-				FlxG.log("Ready");
 				send("say", "Let's play!");
-				send("start");
+				FlxG.state = new LobbyState.gameState();
 			}
 		}
 		
