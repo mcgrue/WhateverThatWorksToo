@@ -1,2 +1,4 @@
 # build products
+.actionScriptProperties
+.project
 bin-debug/

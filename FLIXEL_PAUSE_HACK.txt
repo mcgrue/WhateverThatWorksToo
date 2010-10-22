@@ -1,0 +1,13 @@
+Open FlxGame.as and go to around line 255 where:
+
+		/**
+		 * Internal event handler for input and focus.
+		 */
+		protected function onFocusLost(event:Event=null):void
+		{
+			//FlxG.pause = true;
+		}
+
+
+And comment out the body of the function like so. Now you can test multiplayer locally.
+

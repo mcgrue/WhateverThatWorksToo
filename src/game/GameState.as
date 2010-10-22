@@ -1,6 +1,10 @@
 package game {
-    
+  
+    import flash.display.*;
+    import flash.utils.*;
+	
     import org.flixel.*;
+    import net.*;
 	
 	public class GameState extends FlxState {
         
@@ -17,8 +21,11 @@ package game {
         [Embed (source = "../../data/sprites/hit_block.png")] private var hittableTile:Class;
         [Embed (source = "../../data/maps/mariobros.tmx", mimeType = "application/octet-stream")] private var marioMap:Class;
         
+		public static var status:FlxText;
+		public var lobby:Lobby;
+		
 		public function GameState() {
-
+			
 		}
         
         public static function is_hittable_brick(idx:int): Boolean {
@@ -30,7 +37,7 @@ package game {
         }
         
         override public function create():void {
-            
+			
             add(obs_group);
             add(map_group);
             add(objects_group);
@@ -86,7 +93,19 @@ package game {
             
             plr_group.add( new Player(4*16,9*16,1) );
             plr_group.add( new Player(11*16,9*16,3) );   
-            
+
+			var params:Object = LoaderInfo(this.root.loaderInfo).parameters;
+			var players:Number;
+			if (params.hasOwnProperty('players')) {
+				players = int(params['players']);
+			} else {
+				players = 2;
+			}
+			
+			status = new FlxText(5, 5, 400, "Connecting...");
+			add(status);
+			lobby = new Lobby(BaseClient, BaseHost, players);
+			
             super.create();
         }
         
