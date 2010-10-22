@@ -1,11 +1,14 @@
 package game {
+    import game.Player;
+    
+    import org.flixel.FlxObject;
     import org.flixel.FlxTileblock;
     
     public class HittableBlock extends FlxTileblock {
         
-        public var is_bouncing:Boolean = false;
-        private var orig_x:int;
-        private var orig_y:int;
+        public var isBouncing:Boolean = false;
+        public var originalX:int;
+        public var originalY:int;
         
         public const GRAVITY:int = 640;
         public const JUMP_FORCE:int = 1280;
@@ -14,38 +17,53 @@ package game {
         
         public function HittableBlock(X:int, Y:int, Width:uint, Height:uint) {
             super(X, Y, Width, Height);
-            orig_x = X;
-            orig_y = Y;
+            originalX = X;
+            originalY = Y;
             
             acceleration.y = GRAVITY;
         }
         
-        public function doBounce(inertia:int):void {
-            if( is_bouncing ) {
+        public function doBounce(inertiaX:int, intertiaY:int):void {
+            if( isBouncing ) {
                 return;
             }
             
-            velocity.y = -Math.abs(inertia);
+            velocity.y = -Math.abs(intertiaY);
             
             // bounce everyone atop of it.
             
             y = y-1;
             
-            is_bouncing = true;
+            isBouncing = true;
+        }
+        
+        override public function preCollide(Contact:FlxObject):void {
+
+            /*
+            if( Contact is Player ) {
+                
+                var p:Player = Contact as Player;
+                
+                if( originalY < p.y ) {
+                    p.velocity.y = 0;
+                    p.y = originalY; 
+                }
+            }
+            */
         }
         
         public override function update():void {
-            if( is_bouncing ) {
+            if( isBouncing ) {
                 
-                if( y < orig_y - MAX_BOUNCE_Y ) {
-                    y = orig_y - MAX_BOUNCE_Y;
+                if( y < originalY - MAX_BOUNCE_Y ) {
+                    y = originalY - MAX_BOUNCE_Y;
                     velocity.y = 0;
                 }
                 
-                if( y >= orig_y ) {
-                    y = orig_y;
+                if( y >= originalY ) {
+                    y = originalY;
                     velocity.y = 0;
-                    is_bouncing = false;
+                    isBouncing = false;
                 }
                 
                 super.update();

@@ -1,8 +1,9 @@
 package game {
+    
     import org.flixel.*;
     
     public class Player extends WrappingSprite {
-        [Embed (source = "../../data/sprites/players.png")] private var player_spritesheet:Class;
+        [Embed (source = "../../data/sprites/players.png")] private var playerSpritesheet:Class;
         
         public const MOVE_SPEED:int = 100;
         public const RUN_ACCEL:int = 700;
@@ -10,11 +11,11 @@ package game {
         public const GRAVITY:int = 1200;
         public const JUMP_FORCE:int = 1200;
         public const JUMP_HOLD_FORCE:int = 150;
-        public const MAX_VELOCITY:int = 300;
+        public const MAX_VELOCITY:int = 320;
         
         public const IMPACT_MULTIPLIER:Number = 2; 
         
-        public var player_idx:int; 
+        public var playerIndex:int; 
         
         public var controls:Object = {
             1:{left:'LEFT', right:'RIGHT', up:'UP'},
@@ -24,12 +25,12 @@ package game {
         public function Player(X:Number=0, Y:Number=0, P:Number=1) {
             super(X, Y);
             loadGraphic( 
-                player_spritesheet, 
+                playerSpritesheet, 
                 true, true,
                 16, 16
             );
             
-            player_idx = P;
+            playerIndex = P;
             
             switch(P) {
                 case 1: P=0; break;
@@ -37,7 +38,7 @@ package game {
                 case 3: P=4; break;
                 case 4: P=6; break;
             }
-                        
+            
             var f1:Number = (P);
             var f2:Number = (P+1);
             
@@ -50,7 +51,7 @@ package game {
             acceleration.y = GRAVITY;
         }
         
-        public function do_input(p:Number): void {
+        public function doInput(p:Number): void {
                         
             if( FlxG.keys.pressed(controls[p].left) ) {
                 acceleration.x = -RUN_ACCEL;
@@ -93,7 +94,7 @@ package game {
             } 
         }
         
-        public function do_animation(p:Number): void {
+        public function doAnimation(p:Number): void {
             if( FlxG.keys.pressed(controls[p].left) ) {
                 facing = LEFT;
             } else if( FlxG.keys.pressed(controls[p].right) ) {
@@ -114,19 +115,23 @@ package game {
         }
         
         override public function update(): void {
-            do_input(player_idx);
-            do_animation(player_idx);
+            doInput(playerIndex);
+            doAnimation(playerIndex);
             super.update();
         }
         
         override public function preCollide(Contact:FlxObject):void {
             
             if( Contact is HittableBlock ) {
-                if( y > Contact.y ) {
-                    var hb:HittableBlock = Contact as HittableBlock;
+                
+                var hb:HittableBlock = Contact as HittableBlock;
+                
+                if( y > (hb.originalY) && y <= (hb.originalY+16) ) {
+
+                    hb.doBounce( velocity.x, velocity.y );
                     
-                    hb.doBounce(velocity.y);
-                    velocity.y = -velocity.y;
+                    y = hb.originalY+16;
+                    velocity.y = 0;
                 }
             } else if( Contact is Player ) {
                 Contact.velocity.x = -(Contact.velocity.x*IMPACT_MULTIPLIER);
