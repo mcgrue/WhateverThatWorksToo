@@ -4,7 +4,7 @@ package net
 	
 	public class Lobby
 	{
-		static public const LOBBY_SERVER:String = "http://localhost:8089";
+		static public const LOBBY_SERVER:String = "http://flixel-lobby.appspot.com";
 		static public const PEERING_SERVER:String = "rtmfp://p2p.rtmfp.net/a4d4210ccbc2cf4999167b2e-073ac5fb603c"; // jeff lindsay's
 		
 		public var size:int;
