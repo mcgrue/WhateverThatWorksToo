@@ -106,7 +106,7 @@ package game {
         public function after_update(): void {
             
         }
-               
+        
         override public function update(): void {
             before_update();
             super.update();

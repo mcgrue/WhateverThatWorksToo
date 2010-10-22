@@ -3,6 +3,8 @@ package net
 	import flash.display.*;
 	import flash.utils.*;
 	
+	import game.GameState;
+	
 	import org.flixel.*;
 	
 	public class LobbyState extends FlxState {
@@ -28,10 +30,17 @@ package net
 			}
 			
 			lobby = new Lobby(BaseClient, BaseHost, players);
-			
+            			
 			super.create();
 		}
-		
+        
+        override public function update(): void {
+            
+            if( FlxG.keys.pressed('Q') ) {
+                FlxG.state = new GameState();
+            }
+        }
+        
 		public static function wrap(State:Class):Class {
 			gameState = State;
 			return LobbyState;
