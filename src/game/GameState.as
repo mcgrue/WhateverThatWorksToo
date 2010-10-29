@@ -20,13 +20,13 @@ package game {
         public var obstructionGroup:FlxGroup = new FlxGroup();
         public var objectsGroup:FlxGroup = new FlxGroup();
         public var playerGroup:FlxGroup = new FlxGroup();
+        public var baddieGroup:FlxGroup = new FlxGroup();
+        
         public static const obstructedTiles:Array = [4,17,18,19,33,34,35]; 
             
         [Embed (source = "../../data/tilesets/mario.png")] private var marioTiles:Class;
-        [Embed (source = "../../data/sprites/hit_block.png")] private var hittableTile:Class;
         [Embed (source = "../../data/maps/mariobros.tmx", mimeType = "application/octet-stream")] private var marioMap:Class;
         
-		
 		public function GameState() {
 			
 		}
@@ -45,6 +45,7 @@ package game {
 			add(mapGroup);
 			add(objectsGroup);
 			add(playerGroup);
+            add(baddieGroup);
                         
             var xml:XML = new XML( new marioMap );
             var mapxml:XMLList = xml.*;
@@ -76,21 +77,19 @@ package game {
                         obs.setTile(x, y, 2);
                     } else {
                         if( isHittableBrick(obs.getTile(x,y)) ) {
-                            
                             var hb:HittableBlock = syncnew(HittableBlock, x*16, y*16, 16, 16);
-                            //hb.loadTiles(hittableTile, 16, 16);
-                            
-                            //hb.collideLeft = false;
+
                             //hb.collideRight = false;
+                            //hb.collideLeft = false;
                             objectsGroup.add(hb);
                             
                             map.setTile(x, y, 1);
                         }
-                        
+
                         obs.setTile(x, y, 1);
                     }
-                }    
-           } 
+                }
+           }
             
             mapGroup.add(map);
             //map.visible = false;
@@ -98,7 +97,7 @@ package game {
 			playerGroup.add(syncnew(Player, 4*16,9*16,1) );
 			playerGroup.add(syncnew(Player, 11*16,9*16,3) );   
 
-			//Lobby.host.send('test', defaultGroup);
+            baddieGroup.add( syncnew(Baddie, 13*16, 16*2) );
 			
             super.create();
         }
@@ -112,6 +111,10 @@ package game {
             FlxU.collide(playerGroup, obstructionGroup);
             FlxU.collide(playerGroup, playerGroup);
             FlxU.collide(playerGroup, objectsGroup);
+            FlxU.collide(playerGroup, baddieGroup);
+
+            FlxU.collide(baddieGroup, obstructionGroup);
+            FlxU.collide(baddieGroup, objectsGroup);
         }
         
         public function after_update(): void {
