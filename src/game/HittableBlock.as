@@ -14,12 +14,16 @@ package game {
         public const JUMP_FORCE:int = 1100;
         
         public const MAX_BOUNCE_Y:int = 16;
+		
+		[Embed (source = "../../data/sprites/hit_block.png")] private var hittableTile:Class;
         
         public function HittableBlock(X:int, Y:int, Width:uint, Height:uint) {
             super(X, Y, Width, Height);
             originalX = X;
             originalY = Y;
             
+			loadTiles(hittableTile, 16, 16);
+			
             acceleration.y = GRAVITY;
         }
         

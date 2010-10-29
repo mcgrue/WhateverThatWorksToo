@@ -5,6 +5,7 @@ package net
 	import flash.utils.*;
 	
 	import game.*;
+
 	
 	import org.flixel.*;
 
@@ -39,6 +40,19 @@ package net
 				FlxG.state = new ClientState(this);	
 			}
 			
+		}
+		
+		public function syncnew(k:String, args:Array):void {
+			FlxG.state.add(Util.instantiateClass(k, args));
+		}
+		
+		public function test(o:Object):void {
+			//if (!lobby.isHost) {
+				//FlxG.log(group);
+				var obj:FlxGroup = o as FlxGroup;
+				FlxG.log(obj);
+				//FlxG.state.add(o as FlxGroup);
+			//}
 		}
 		
 		public function onKey(event:KeyboardEvent):void {

@@ -4,14 +4,15 @@ package net
 	
 	public class Lobby
 	{
-		static public const LOBBY_SERVER:String = "http://flixel-lobby.appspot.com";
+		//static public const LOBBY_SERVER:String = "http://flixel-lobby.appspot.com";
+		static public const LOBBY_SERVER:String = "http://localhost:8089";
 		static public const PEERING_SERVER:String = "rtmfp://p2p.rtmfp.net/a4d4210ccbc2cf4999167b2e-073ac5fb603c"; // jeff lindsay's
 		
 		public var size:int;
 		public var game:String;
 		
-		public var client:BaseClient;
-		public var host:BaseHost;
+		static public var client:BaseClient;
+		static public var host:BaseHost;
 		public var isHost:Boolean = false;
 		
 		public function Lobby(clientClass:Class, hostClass:Class, size:int, game:String=null)

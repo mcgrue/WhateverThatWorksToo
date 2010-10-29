@@ -13,7 +13,7 @@ package net
 		
 		public const STREAM_NAME:String = "PeerSocket";
 		
-		public var connectTimeout:uint 	= 1000;
+		public var connectTimeout:uint 	= 3000;
 		public var connection:NetConnection;
 		
 		private var readyCallback:Function = function():void {};

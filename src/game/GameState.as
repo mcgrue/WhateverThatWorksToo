@@ -3,8 +3,13 @@ package game {
     import flash.display.*;
     import flash.utils.*;
     
+    import mx.events.PropertyChangeEvent;
+    import mx.utils.*;
+	import mx.binding.utils.*;
+    
+    import net.*;
+    
     import org.flixel.*;
-   
 	
 	public class GameState extends FlxState {
         
@@ -72,8 +77,8 @@ package game {
                     } else {
                         if( isHittableBrick(obs.getTile(x,y)) ) {
                             
-                            var hb:HittableBlock = new HittableBlock(x*16, y*16, 16, 16);
-                            hb.loadTiles(hittableTile, 16, 16);
+                            var hb:HittableBlock = syncnew(HittableBlock, x*16, y*16, 16, 16);
+                            //hb.loadTiles(hittableTile, 16, 16);
                             
                             //hb.collideLeft = false;
                             //hb.collideRight = false;
@@ -90,12 +95,18 @@ package game {
             mapGroup.add(map);
             //map.visible = false;
             
-			playerGroup.add( new Player(4*16,9*16,1) );
-			playerGroup.add( new Player(11*16,9*16,3) );   
+			playerGroup.add(syncnew(Player, 4*16,9*16,1) );
+			playerGroup.add(syncnew(Player, 11*16,9*16,3) );   
 
+			//Lobby.host.send('test', defaultGroup);
 			
             super.create();
         }
+		
+		static public function syncnew(klass:Class, ... args):* {
+			Lobby.host.send('syncnew', getQualifiedClassName(klass), args);
+			return Util.instantiateClass(getQualifiedClassName(klass), args);
+		} 
         
         public function before_update(): void {    
             FlxU.collide(playerGroup, obstructionGroup);
