@@ -1,10 +1,13 @@
 package game {
-    import org.flixel.FlxSprite;
     import org.flixel.FlxObject;
+    import org.flixel.FlxPoint;
+    import org.flixel.FlxSprite;
     
     public class Baddie extends WrappingSprite {
         
         [Embed (source = "../../data/sprites/players.png")] private var playerSpritesheet:Class;
+        
+        private var _flip:Boolean;
         
         public function Baddie(X:Number=0, Y:Number=0, SimpleGraphic:Class=null) {
             super(X, Y);
@@ -28,10 +31,24 @@ package game {
             super.update();
         }
         
+        public function isFlipped():Boolean {
+            return this._flip;
+        }
+        
+        public function flip():void {
+            this._flip = true;
+            this.scale = new FlxPoint(1,-1);
+        }
+        
         override public function preCollide(Contact:FlxObject):void {
             
             if( Contact is HittableBlock ) {
                 
+                var hb:HittableBlock = Contact as HittableBlock;
+                
+                if( hb.isDangerous() && !this.isFlipped() ) {
+                    this.flip();
+                }
             } else if( Contact is Player ) {
                 
             } else if( Contact is Baddie ) {

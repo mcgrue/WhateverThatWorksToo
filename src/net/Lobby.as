@@ -13,7 +13,7 @@ package net
 		
 		static public var client:BaseClient;
 		static public var host:BaseHost;
-		public var isHost:Boolean = false;
+		static public var isHost:Boolean = false;
 		
 		public function Lobby(clientClass:Class, hostClass:Class, size:int, game:String=null)
 		{

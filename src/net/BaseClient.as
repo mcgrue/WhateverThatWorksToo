@@ -36,7 +36,7 @@ package net
 		}
 		
 		public function start():void {
-			if (!lobby.isHost) {
+			if (!Lobby.isHost) {
 				FlxG.state = new ClientState(this);	
 			}
 			

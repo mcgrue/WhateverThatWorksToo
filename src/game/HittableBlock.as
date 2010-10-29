@@ -20,7 +20,6 @@ package game {
 		
 		[Embed (source = "../../data/sprites/hit_block.png")] private var hittableTile:Class;
         
-        
         public function HittableBlock(X:int, Y:int, Width:uint, Height:uint) {
             super(X, Y);
             originalX = X;
@@ -68,6 +67,10 @@ package game {
                 this.storedX = 0;
             }
             
+        }
+        
+        public function isDangerous():Boolean {
+            return (this.storedXTicks > 0);
         }
         
         public override function update():void {

@@ -34,15 +34,8 @@ package game {
             
             playerIndex = P;
             
-            switch(P) {
-                case 1: P=0; break;
-                case 2: P=2; break;
-                case 3: P=4; break;
-                case 4: P=6; break;
-            }
-            
-            var f1:Number = (P);
-            var f2:Number = (P+1);
+            var f1:Number = {1:0, 2:2, 3:4, 4:6}[P];
+            var f2:Number = (f1+1);
             
             addAnimation("idle", [f1, f2], 2);
             addAnimation("run", [f1, f2], 6);
