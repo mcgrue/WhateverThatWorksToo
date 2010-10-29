@@ -40,6 +40,10 @@ package game {
             this.scale = new FlxPoint(1,-1);
         }
         
+        public function die(): void {
+            this.kill();
+        }
+        
         override public function preCollide(Contact:FlxObject):void {
             
             if( Contact is HittableBlock ) {
@@ -50,6 +54,12 @@ package game {
                     this.flip();
                 }
             } else if( Contact is Player ) {
+                if( this.isFlipped() ) {
+                    this.die();
+                } else {
+                    var player:Player = Contact as Player;
+                    player.die();
+                }
                 
             } else if( Contact is Baddie ) {
                 

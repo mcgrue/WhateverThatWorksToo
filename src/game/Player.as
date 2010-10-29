@@ -46,6 +46,10 @@ package game {
             acceleration.y = GRAVITY;
         }
         
+        public function die(): void {
+            this.kill()
+        }
+        
         public function doInput(p:Number): void {
                         
             if( FlxG.keys.pressed(controls[p].left) ) {
